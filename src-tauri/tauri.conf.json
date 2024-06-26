@@ -6,8 +6,7 @@
     "distDir": "../build"
   },
   "package": {
-    "productName": "pgit",
-    "version": "0.0.1"
+    "productName": "pgit"
   },
   "tauri": {
     "allowlist": {
@@ -28,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "io.github.sneakypete81-pgit",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
