@@ -2,33 +2,18 @@
 	import * as Resizable from '$lib/components/ui/resizable';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 
-	let branches = [
-		'main',
-		'private/pete/feature',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch',
-		'another-branch'
-	];
+	import { listen, type Event } from '@tauri-apps/api/event';
+	import { invoke } from '@tauri-apps/api/tauri';
+
+	let branches: string[] = [];
+
+	type Payload = {
+		branches: string[];
+	};
+
+	listen('branches', (event: Event<Payload>) => (branches = event.payload.branches));
+
+	invoke('init');
 </script>
 
 <Resizable.PaneGroup direction="horizontal" class="border">
