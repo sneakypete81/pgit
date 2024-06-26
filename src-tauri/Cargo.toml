@@ -1,11 +1,11 @@
 [package]
-name = "app"
+name = "pgit"
 version = "0.0.1"
 description = "A Tauri App"
 authors = ["you"]
 license = ""
 repository = ""
-default-run = "app"
+default-run = "pgit"
 edition = "2021"
 rust-version = "1.60"
 
