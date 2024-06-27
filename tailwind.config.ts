@@ -18,8 +18,18 @@ const config: Config = {
 				border: "hsl(var(--border) / <alpha-value>)",
 				input: "hsl(var(--input) / <alpha-value>)",
 				ring: "hsl(var(--ring) / <alpha-value>)",
-				background: "hsl(var(--background) / <alpha-value>)",
-				foreground: "hsl(var(--foreground) / <alpha-value>)",
+				background: {
+					DEFAULT: "hsl(var(--background) / <alpha-value>)",
+					10: "hsl(var(--background-10) / <alpha-value>)",
+					20: "hsl(var(--background-20) / <alpha-value>)",
+					30: "hsl(var(--background-30) / <alpha-value>)",
+					40: "hsl(var(--background-40) / <alpha-value>)",
+					50: "hsl(var(--background-50) / <alpha-value>)",
+				},
+				foreground: {
+					DEFAULT: "hsl(var(--foreground) / <alpha-value>)",
+					dim: "hsl(var(--foreground-dim) / <alpha-value>)",
+				},
 				primary: {
 					DEFAULT: "hsl(var(--primary) / <alpha-value>)",
 					foreground: "hsl(var(--primary-foreground) / <alpha-value>)"

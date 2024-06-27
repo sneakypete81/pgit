@@ -17,15 +17,18 @@
 </script>
 
 <Resizable.PaneGroup direction="horizontal" class="border">
-	<Resizable.Pane defaultSize={25}>
-		<ScrollArea class="h-32 h-full pl-2">
+	<Resizable.Pane defaultSize={25} class="bg-background-10 pl-2">
+		<div class="font-bold uppercase">Branches</div>
+		<ScrollArea class="h-32 h-full">
 			{#each branches as branch}
-				<div class="overflow-clip text-xs">
+				<div class="overflow-clip text-foreground-dim">
 					{branch}
 				</div>
 			{/each}
 		</ScrollArea>
 	</Resizable.Pane>
-	<Resizable.Handle />
-	<Resizable.Pane>Two</Resizable.Pane>
+	<Resizable.Handle class="bg-background-20" />
+	<Resizable.Pane class="bg-background-20">Two</Resizable.Pane>
+	<Resizable.Handle class="bg-background-30" />
+	<Resizable.Pane class="bg-background-30">Three</Resizable.Pane>
 </Resizable.PaneGroup>
