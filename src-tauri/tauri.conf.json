@@ -57,6 +57,7 @@
         "height": 600,
         "resizable": true,
         "title": "PGit",
+        "visible": false,
         "width": 800
       }
     ]

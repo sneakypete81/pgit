@@ -3,12 +3,14 @@
 
 mod branches;
 
-use tauri::Window;
 use branches::BranchEmitter;
+use tauri::{Result, Window};
 
 #[tauri::command]
-fn init(branch_emitter: tauri::State<BranchEmitter>, window: Window) {
+fn init(branch_emitter: tauri::State<BranchEmitter>, window: Window) -> Result<()> {
+    window.show()?;
     branch_emitter.start(window);
+    Ok(())
 }
 
 fn main() {
