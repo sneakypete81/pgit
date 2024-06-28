@@ -12,10 +12,10 @@
 	listen('branches', (event: Event<Payload>) => (branches = event.payload.branches));
 </script>
 
-<div class="font-bold uppercase">Branches</div>
-<ScrollArea class="h-32 h-full">
+<div class="pl-4 font-bold uppercase">Branches</div>
+<ScrollArea class="h-32 h-full cursor-default select-none">
 	{#each branches as branch}
-		<div class="overflow-clip text-foreground-dim">
+		<div class="pl-4 text-foreground-dim hover:bg-background-30">
 			{branch}
 		</div>
 	{/each}

@@ -8,12 +8,12 @@
 	onMount(() => invoke('init'));
 </script>
 
-<Resizable.PaneGroup direction="horizontal" class="border">
-	<Resizable.Pane defaultSize={25} class="bg-background-10 pl-2">
+<Resizable.PaneGroup direction="horizontal" class="text-nowrap">
+	<Resizable.Pane class="bg-background-10">
 		<Locations />
 	</Resizable.Pane>
 	<Resizable.Handle class="bg-background-20" />
 	<Resizable.Pane class="bg-background-20">Two</Resizable.Pane>
 	<Resizable.Handle class="bg-background-30" />
-	<Resizable.Pane class="bg-background-30">Three</Resizable.Pane>
+	<Resizable.Pane defaultSize={50} class="bg-background-30">Three</Resizable.Pane>
 </Resizable.PaneGroup>
