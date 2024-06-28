@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CommitGraph from '$lib/components/commit-graph.svelte';
 	import Locations from '$lib/components/locations.svelte';
 	import * as Resizable from '$lib/components/ui/resizable';
 
@@ -13,7 +14,9 @@
 		<Locations />
 	</Resizable.Pane>
 	<Resizable.Handle class="bg-background-20" />
-	<Resizable.Pane class="bg-background-20">Two</Resizable.Pane>
+	<Resizable.Pane class="bg-background-20">
+		<CommitGraph />
+	</Resizable.Pane>
 	<Resizable.Handle class="bg-background-30" />
 	<Resizable.Pane defaultSize={50} class="bg-background-30">Three</Resizable.Pane>
 </Resizable.PaneGroup>
