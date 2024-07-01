@@ -2,8 +2,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod branches;
+mod git;
 
-use branches::BranchEmitter;
+use crate::branches::BranchEmitter;
 use tauri::{Result, Window};
 
 #[tauri::command]

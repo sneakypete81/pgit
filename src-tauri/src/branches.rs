@@ -1,10 +1,11 @@
-use std::{sync::RwLock, time::Duration};
-
+use crate::git::Git;
+use std::{path::Path, sync::RwLock, time::Duration};
 use tauri::Window;
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
     branches: Vec<String>,
+    commits: Vec<String>,
 }
 
 #[derive(Default)]
@@ -24,16 +25,18 @@ impl BranchEmitter {
 
     fn spawn(window: Window) {
         std::thread::spawn(move || {
-            let mut branches = vec!["main".into(), "private/pete/feature".into()];
+            let git = Git::open(Path::new("/Users/peteburgers/projects/pgit"));
             loop {
-                branches.push(format!("another-branch-{}", branches.len()));
-                Self::emit_branches(&window, branches.clone());
+                let branches = git.branches();
+                let commits = git.commits();
+                println!("{:?}", commits);
+                Self::emit_branches(&window, Payload { branches, commits });
                 std::thread::sleep(Duration::from_secs(1));
             }
         });
     }
 
-    fn emit_branches(window: &Window, branches: Vec<String>) {
-        window.emit("branches", Payload { branches }).unwrap();
+    fn emit_branches(window: &Window, payload: Payload) {
+        window.emit("branches", payload).unwrap();
     }
 }
