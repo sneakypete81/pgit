@@ -1,3 +1,4 @@
+import colors from "tailwindcss/colors"
 import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 
@@ -15,6 +16,14 @@ const config: Config = {
 		},
 		extend: {
 			colors: {
+				branch: {
+					0: colors.blue[400],
+					1: colors.purple[400],
+					2: colors.pink[400],
+					3: colors.red[400],
+					4: colors.yellow[400],
+					5: colors.teal[400]
+				},
 				border: "hsl(var(--border) / <alpha-value>)",
 				input: "hsl(var(--input) / <alpha-value>)",
 				ring: "hsl(var(--ring) / <alpha-value>)",
