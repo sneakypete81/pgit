@@ -4,9 +4,11 @@ use std::path::Path;
 
 #[derive(Clone, serde::Serialize)]
 pub struct Commit {
+    id: String,
     message: String,
     author: Person,
     time: Time,
+    parents: Vec<String>,
     column: i32,
 }
 
@@ -70,9 +72,11 @@ impl Git {
         let commits = oids.map(|oid| self.repo.find_commit(oid).unwrap());
         commits
             .map(|c| Commit {
+                id: c.id().to_string(),
                 message: c.message().unwrap().to_owned(),
                 author: c.author().into(),
                 time: c.time().try_into().unwrap(),
+                parents: c.parent_ids().map(|id| id.to_string()).collect(),
                 column: 0,
             })
             .collect()

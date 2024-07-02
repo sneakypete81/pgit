@@ -3,9 +3,11 @@ import { listen as eventListen } from '@tauri-apps/api/event';
 import { invoke } from '@tauri-apps/api/tauri';
 
 export type Commit = {
+	id: string;
 	message: string;
 	author: Person;
 	time: string;
+	parents: string[];
 	column: number;
 };
 
