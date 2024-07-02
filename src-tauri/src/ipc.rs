@@ -1,4 +1,4 @@
-use crate::git::Git;
+use crate::git::{Commit, Git};
 use std::{path::Path, sync::RwLock, time::Duration};
 use tauri::{Invoke, Result, State, Window};
 
@@ -16,7 +16,7 @@ fn init(ipc: State<Ipc>, window: Window) -> Result<()> {
 #[derive(Clone, serde::Serialize)]
 struct Payload {
     branches: Vec<String>,
-    commits: Vec<String>,
+    commits: Vec<Commit>,
 }
 
 #[derive(Default)]

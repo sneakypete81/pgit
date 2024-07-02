@@ -1,13 +1,9 @@
 <script context="module" lang="ts">
-	export type Commit = {
-		message: string;
-		author: string;
-		date: Date;
-		column: number;
-	};
 </script>
 
 <script lang="ts">
+	import { type Commit } from '$lib/ipc';
+
 	export let commit: Commit;
 	$: color = [
 		'text-branch-0',
