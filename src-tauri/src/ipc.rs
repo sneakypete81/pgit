@@ -1,6 +1,17 @@
 use crate::git::Git;
 use std::{path::Path, sync::RwLock, time::Duration};
-use tauri::Window;
+use tauri::{Invoke, Result, State, Window};
+
+pub fn command_handler() -> impl Fn(Invoke) {
+    tauri::generate_handler![init]
+}
+
+#[tauri::command]
+fn init(ipc: State<Ipc>, window: Window) -> Result<()> {
+    window.show()?;
+    ipc.start(window);
+    Ok(())
+}
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -9,11 +20,11 @@ struct Payload {
 }
 
 #[derive(Default)]
-pub struct BranchEmitter {
+pub struct Ipc {
     started: RwLock<bool>,
 }
 
-impl BranchEmitter {
+impl Ipc {
     pub fn start(&self, window: Window) {
         if *self.started.read().unwrap() {
             println!("Already started");
@@ -27,16 +38,19 @@ impl BranchEmitter {
         std::thread::spawn(move || {
             let git = Git::open(Path::new("/Users/peteburgers/projects/pgit"));
             loop {
-                let branches = git.branches();
-                let commits = git.commits();
-                println!("{:?}", commits);
-                Self::emit_branches(&window, Payload { branches, commits });
+                Self::send(
+                    &window,
+                    Payload {
+                        branches: git.branches(),
+                        commits: git.commits(),
+                    },
+                );
                 std::thread::sleep(Duration::from_secs(1));
             }
         });
     }
 
-    fn emit_branches(window: &Window, payload: Payload) {
-        window.emit("branches", payload).unwrap();
+    fn send(window: &Window, payload: Payload) {
+        window.emit("status", payload).unwrap();
     }
 }

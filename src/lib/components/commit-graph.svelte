@@ -1,27 +1,18 @@
 <script lang="ts">
 	import type { Commit } from './commit.svelte';
 	import CommitCell from './commit.svelte';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
+	import { ScrollArea } from '$lib/components/ui/scroll-area';
 
-	import { listen, type Event } from '@tauri-apps/api/event';
+	export let commits: string[] = [];
 
-	let commits: Commit[] = [];
-
-	type Payload = {
-		commits: string[];
-	};
-
-	listen(
-		'branches',
-		(event: Event<Payload>) =>
-			(commits = event.payload.commits.map((message) => {
-				return { message, author: 'me', date: new Date(), column: 0 };
-			}))
-	);
+	let mappedCommits: Commit[];
+	$: mappedCommits = commits.map((message) => {
+		return { message, author: 'me', date: new Date(), column: 0 };
+	});
 </script>
 
 <ScrollArea class="h-32 h-full cursor-default select-none">
-	{#each commits as commit}
+	{#each mappedCommits as commit}
 		<CommitCell {commit} />
 	{/each}
 </ScrollArea>

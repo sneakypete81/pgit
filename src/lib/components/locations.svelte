@@ -1,15 +1,7 @@
 <script lang="ts">
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
+	import { ScrollArea } from '$lib/components/ui/scroll-area';
 
-	import { listen, type Event } from '@tauri-apps/api/event';
-
-	let branches: string[] = [];
-
-	type Payload = {
-		branches: string[];
-	};
-
-	listen('branches', (event: Event<Payload>) => (branches = event.payload.branches));
+	export let branches: string[] = [];
 </script>
 
 <div class="pl-4 font-bold uppercase">Branches</div>
