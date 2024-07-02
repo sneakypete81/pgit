@@ -4,9 +4,14 @@ import { invoke } from '@tauri-apps/api/tauri';
 
 export type Commit = {
 	message: string;
-	author: string;
+	author: Person;
 	time: string;
 	column: number;
+};
+
+export type Person = {
+	name: string;
+	email: string;
 };
 
 export type Payload = {

@@ -26,7 +26,7 @@
 	<div class="absolute inset-0 content-center" style="margin-left: {offset + 15}px">
 		{commit.message}
 		<div class="italic text-foreground-dim">
-			{commit.author}
+			{commit.author.name}
 		</div>
 	</div>
 </div>

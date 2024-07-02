@@ -5,9 +5,24 @@ use std::path::Path;
 #[derive(Clone, serde::Serialize)]
 pub struct Commit {
     message: String,
-    author: String,
+    author: Person,
     time: Time,
     column: i32,
+}
+
+#[derive(Clone, serde::Serialize)]
+struct Person {
+    name: Option<String>,
+    email: Option<String>,
+}
+
+impl From<git2::Signature<'_>> for Person {
+    fn from(signature: git2::Signature) -> Person {
+        Person {
+            name: signature.name().map(|n| n.to_owned()),
+            email: signature.email().map(|e| e.to_owned()),
+        }
+    }
 }
 
 #[derive(Clone, serde::Serialize)]
@@ -56,8 +71,8 @@ impl Git {
         commits
             .map(|c| Commit {
                 message: c.message().unwrap().to_owned(),
-                author: c.author().to_string(),
-                time: Time::try_from(c.time()).unwrap(),
+                author: c.author().into(),
+                time: c.time().try_into().unwrap(),
                 column: 0,
             })
             .collect()
