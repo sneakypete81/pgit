@@ -1,6 +1,6 @@
 import { type Event } from '@tauri-apps/api/event';
 import { listen as eventListen } from '@tauri-apps/api/event';
-import { invoke } from '@tauri-apps/api/tauri';
+import { invoke } from '@tauri-apps/api/core';
 
 export type Commit = {
 	id: string;

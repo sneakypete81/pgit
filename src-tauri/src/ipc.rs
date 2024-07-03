@@ -1,8 +1,8 @@
 use crate::git::{Commit, Git};
 use std::{path::Path, sync::RwLock, time::Duration};
-use tauri::{Invoke, Result, State, Window};
+use tauri::{ipc::Invoke, Manager, Result, State, Window};
 
-pub fn command_handler() -> impl Fn(Invoke) {
+pub fn command_handler() -> impl Fn(Invoke) -> bool {
     tauri::generate_handler![init]
 }
 
