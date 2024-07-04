@@ -1,14 +1,14 @@
 <script lang="ts">
+	import { commands, events, type Status } from '$lib/bindings';
 	import CommitGraph from '$lib/components/commit-graph.svelte';
 	import Locations from '$lib/components/locations.svelte';
 	import * as Resizable from '$lib/components/ui/resizable';
-	import { init, listen, type Payload } from '$lib/ipc';
 	import { onMount } from 'svelte';
 
-	onMount(init);
+	onMount(commands.init);
 
-	let payload: Payload = { branches: [], commits: [] };
-	listen((p: Payload) => (payload = p));
+	let payload: Status = { branches: [], commits: [] };
+	events.status.listen((e) => (payload = e.payload));
 </script>
 
 <Resizable.PaneGroup direction="horizontal" class="text-nowrap">

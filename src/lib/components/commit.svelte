@@ -2,7 +2,7 @@
 </script>
 
 <script lang="ts">
-	import { type Commit } from '$lib/ipc';
+	import { type Commit } from '$lib/bindings';
 
 	export let commit: Commit;
 	$: color = [

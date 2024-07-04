@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Commit } from '$lib/ipc';
+	import { type Commit } from '$lib/bindings';
 	import CommitCell from './commit.svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 

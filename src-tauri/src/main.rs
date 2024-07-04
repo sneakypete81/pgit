@@ -4,12 +4,17 @@
 mod git;
 mod ipc;
 
-use crate::ipc::{command_handler, Ipc};
+use crate::ipc::Ipc;
 
 fn main() {
+    let (invoke_handler, register_events) = ipc::build();
     tauri::Builder::default()
         .manage(Ipc::default())
-        .invoke_handler(command_handler())
+        .invoke_handler(invoke_handler)
+        .setup(|app| {
+            register_events(app);
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

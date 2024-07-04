@@ -2,7 +2,7 @@ use chrono::{DateTime, FixedOffset};
 use git2::{Repository, Sort};
 use std::path::Path;
 
-#[derive(Clone, serde::Serialize)]
+#[derive(Clone, Debug, serde::Serialize, specta::Type)]
 pub struct Commit {
     id: String,
     message: String,
@@ -12,7 +12,7 @@ pub struct Commit {
     column: i32,
 }
 
-#[derive(Clone, serde::Serialize)]
+#[derive(Clone, Debug, serde::Serialize, specta::Type)]
 struct Person {
     name: Option<String>,
     email: Option<String>,
@@ -27,7 +27,7 @@ impl From<git2::Signature<'_>> for Person {
     }
 }
 
-#[derive(Clone, serde::Serialize)]
+#[derive(Clone, Debug, serde::Serialize, specta::Type)]
 struct Time(String);
 
 impl TryFrom<git2::Time> for Time {
