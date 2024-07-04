@@ -1,4 +1,5 @@
-use crate::git::{Commit, Git};
+use crate::format::{format_commits, FormattedCommit};
+use crate::git::Git;
 use serde::Serialize;
 use std::{path::Path, sync::RwLock, time::Duration};
 use tauri::{ipc::Invoke, State, Window};
@@ -25,7 +26,7 @@ pub fn init(ipc: State<Ipc>, window: Window) {
 #[derive(Debug, Clone, Serialize, specta::Type, tauri_specta::Event)]
 pub struct Status {
     branches: Vec<String>,
-    commits: Vec<Commit>,
+    commits: Vec<FormattedCommit>,
 }
 
 #[derive(Default)]
@@ -49,7 +50,7 @@ impl Ipc {
             loop {
                 let status = Status {
                     branches: git.branches(),
-                    commits: git.commits(),
+                    commits: format_commits(git.commits()),
                 };
                 status.emit(&window).unwrap();
                 std::thread::sleep(Duration::from_secs(1));

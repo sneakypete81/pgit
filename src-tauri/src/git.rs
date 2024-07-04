@@ -2,18 +2,17 @@ use chrono::{DateTime, FixedOffset};
 use git2::{Repository, Sort};
 use std::path::Path;
 
-#[derive(Clone, Debug, serde::Serialize, specta::Type)]
+#[derive(Clone, Debug)]
 pub struct Commit {
-    id: String,
-    message: String,
-    author: Person,
-    time: Time,
-    parents: Vec<String>,
-    column: i32,
+    pub id: String,
+    pub message: String,
+    pub author: Person,
+    pub time: DateTime<FixedOffset>,
+    pub parents: Vec<String>,
 }
 
 #[derive(Clone, Debug, serde::Serialize, specta::Type)]
-struct Person {
+pub struct Person {
     name: Option<String>,
     email: Option<String>,
 }
@@ -27,21 +26,17 @@ impl From<git2::Signature<'_>> for Person {
     }
 }
 
-#[derive(Clone, Debug, serde::Serialize, specta::Type)]
-struct Time(String);
+struct Time(git2::Time);
 
-impl TryFrom<git2::Time> for Time {
+impl TryFrom<Time> for DateTime<FixedOffset> {
     type Error = &'static str;
 
-    fn try_from(time: git2::Time) -> Result<Time, &'static str> {
-        Ok(Time(
-            DateTime::from_timestamp(time.seconds(), 0)
-                .ok_or("inavlid timestamp")?
-                .with_timezone(
-                    &FixedOffset::east_opt(time.offset_minutes() * 60).ok_or("invalid timezone")?,
-                )
-                .to_rfc3339(),
-        ))
+    fn try_from(time: Time) -> Result<DateTime<FixedOffset>, &'static str> {
+        Ok(DateTime::from_timestamp(time.0.seconds(), 0)
+            .ok_or("invalid timestamp")?
+            .with_timezone(
+                &FixedOffset::east_opt(time.0.offset_minutes() * 60).ok_or("invalid timezone")?,
+            ))
     }
 }
 
@@ -75,9 +70,8 @@ impl Git {
                 id: c.id().to_string(),
                 message: c.message().unwrap().to_owned(),
                 author: c.author().into(),
-                time: c.time().try_into().unwrap(),
+                time: Time(c.time()).try_into().unwrap(),
                 parents: c.parent_ids().map(|id| id.to_string()).collect(),
-                column: 0,
             })
             .collect()
     }

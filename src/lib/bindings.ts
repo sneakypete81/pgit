@@ -23,10 +23,9 @@ status: "status"
 
 /** user-defined types **/
 
-export type Commit = { id: string; message: string; author: Person; time: Time; parents: string[]; column: number }
+export type Commit = { id: string; message: string; author: Person; time: string; parents: string[]; column: number }
 export type Person = { name: string | null; email: string | null }
 export type Status = { branches: string[]; commits: Commit[] }
-export type Time = string
 
 /** tauri-specta globals **/
 
