@@ -25,9 +25,13 @@
 	</div>
 	<div class="absolute inset-0 content-center" style="margin-left: {offset + 15}px">
 		{commit.message}
-		<div class="italic text-foreground-dim">
-			{commit.author.name}
-			{commit.time}
+		<div class="flex italic text-foreground-dim">
+			<div class="grow">
+				{commit.author.name}
+			</div>
+			<div class="mx-2">
+				{commit.time}
+			</div>
 		</div>
 	</div>
 </div>
