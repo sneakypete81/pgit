@@ -23,7 +23,8 @@ status: "status"
 
 /** user-defined types **/
 
-export type Commit = { id: string; message: string; author: Person; time: string; parents: string[]; column: number }
+export type Commit = { id: string; message: string; author: Person; time: FormattedTime; parents: string[]; column: number }
+export type FormattedTime = string
 export type Person = { name: string | null; email: string | null }
 export type Status = { branches: string[]; commits: Commit[] }
 

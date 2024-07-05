@@ -27,6 +27,7 @@
 		{commit.message}
 		<div class="italic text-foreground-dim">
 			{commit.author.name}
+			{commit.time}
 		</div>
 	</div>
 </div>
